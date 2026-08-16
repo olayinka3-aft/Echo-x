@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+
+<h1>👑 Admin Panel</h1>
+
+<input type="password" id="pass" placeholder="Enter password">
+<button onclick="login()">Login</button>
+
+<div id="panel" style="display:none">
+
+<h2>📢 Announcement</h2>
+<input id="ann">
+<button onclick="updateAnn()">Update</button>
+
+<h2>📝 Complaints</h2>
+<div id="complaints"></div>
+
+</div>
+
+</div>
+
+<script>
+const API = "https://echox-supportweb.onrender.com";
+
+async function login() {
+    let res = await fetch(API + '/login', {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({ password: pass.value })
+    });
+
+    let data = await res.json();
+
+    if (data.success) {
+        panel.style.display = "block";
+        loadData();
+    } else alert("Wrong password");
+}
+
+async function loadData() {
+    let res = await fetch(API + '/data');
+    let data = await res.json();
+
+    complaints.innerHTML = data.complaints.map((c,i)=>
+        `<div class="card">
+            <b>${c.name}</b><br>${c.text}
+            <button onclick="del(${i})">Delete</button>
+        </div>`
+    ).join('');
+}
+
+async function del(i) {
+    await fetch(API + '/delete', {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({ index:i })
+    });
+    loadData();
+}
+
+async function updateAnn() {
+    await fetch(API + '/announcement', {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({ text: ann.value })
+    });
+    alert("Updated ✅");
+}
+</script>
+
+</body>
+</html>
