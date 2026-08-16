@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Echo X Support</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+
+<h1>🚀 Echo X Support</h1>
+
+<div class="card">
+    <h2>📢 Announcement</h2>
+    <p id="announcement"></p>
+</div>
+
+<div class="card">
+    <h2>📝 Complaint</h2>
+    <input id="name" placeholder="Your name">
+    <textarea id="complaint" placeholder="Type complaint..."></textarea>
+    <button onclick="sendComplaint()">Send</button>
+</div>
+
+<div class="card">
+    <h2>⭐ Review</h2>
+    <input id="reviewText" placeholder="Your review">
+    <select id="stars">
+        <option>1 ⭐</option>
+        <option>2 ⭐</option>
+        <option>3 ⭐</option>
+        <option>4 ⭐</option>
+        <option>5 ⭐</option>
+    </select>
+    <button onclick="sendReview()">Submit</button>
+</div>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
